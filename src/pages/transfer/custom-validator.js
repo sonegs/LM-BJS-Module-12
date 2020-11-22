@@ -1,6 +1,7 @@
 const todayValidation = 'Day validations';
 const today = new Date();
 
+// Valida el día
 export const dayValidator = theDay => {
     const { value } = theDay;
     const myValue = parseInt(value);
@@ -10,18 +11,16 @@ export const dayValidator = theDay => {
         message: 'Debe introducir un día válido',
     };
 
+    // obtenemos los valores introducidos de mes y año si los hubiese en ese momento
     const giveMeMonth = document.getElementById('month').value;
     const giveMeYear = document.getElementById('year').value;
 
-    if ((giveMeYear > today.getFullYear()) || (giveMeMonth > (today.getMonth() + 1))) {
+    if ((giveMeYear > today.getFullYear()) || (giveMeMonth > (today.getMonth() + 1))) { // controlamos que el mes o el año son superiores a los actuales
         if (myValue <= 31) {
-            console.log("entra");
             validationDayResult.succeeded = true;
             validationDayResult.message = '';
         }
-    } else if (myValue > today.getDate() && (myValue <= 31)) {
-
-        console.log("entra");
+    } else if (myValue > today.getDate() && (myValue <= 31)) { // si estamos en el mes actual, comprobamos que el día no es superior al actual
         validationDayResult.succeeded = true;
         validationDayResult.message = '';
 
@@ -39,13 +38,12 @@ export const monthValidator = theMonth => {
         message: 'Debe introducir un mes válido',
     };
 
+    // obtenemos el valor del año
     const giveMeYear = document.getElementById('year').value;
     if (giveMeYear > today.getFullYear()) {
-        console.log("entra en mes");
         validationMonthResult.succeeded = true;
         validationMonthResult.message = '';
-    } else if (myValue >= (today.getMonth() + 1) && (myValue <= 12)) {
-        console.log("entra en mes");
+    } else if (myValue >= (today.getMonth() + 1) && (myValue <= 12)) { // si el año no es posterior, comprobamos que estamos en un mes posterior
         validationMonthResult.succeeded = true;
         validationMonthResult.message = '';
     }

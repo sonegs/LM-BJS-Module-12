@@ -1,10 +1,28 @@
 import { onUpdateField, onSubmitForm, onSetError, onSetFormErrors, onSetValues } from '../../common/helpers';
 import { setAccountOptions } from './transfer.helpers';
 import { formValidation } from './transfer.validations';
-import { insertTransfer, getTransfer, updateTransfer } from './transfer.api';
+import { insertTransfer, getTransfer } from './transfer.api';
 import { history } from '../../core/router';
-import { mapTransferVmToApi } from './transfer.mappers';
 
+let transfer = {
+    id: '',
+    select: 1,
+    iban: '',
+    name: '',
+    amount: '',
+    concept: '',
+    notes: '',
+    day: '',
+    month: '',
+    year: '',
+    email: '',
+};
+
+const params = history.getParams();
+getTransfer().then(accountList => { onSetValues(setAccountOptions(accountList, params.id)); });
+
+// esta función se encarga de llamar a la validación del día, mes y año
+// se ha diseñado así para repetir menos código en las validaciones
 function callTHeDates() {
 
     formValidation.validateField('year', transfer.year).then(result => {
@@ -18,23 +36,6 @@ function callTHeDates() {
     });
 
 }
-let transfer = {
-    id: '',
-    select: 1,
-    iban: '',
-    name: '',
-    amount: '',
-    concept: '',
-    comments: '',
-    day: '',
-    month: '',
-    year: '',
-    email: '',
-};
-
-const params = history.getParams();
-getTransfer().then(accountList => { onSetValues(setAccountOptions(accountList, params.id)); });
-
 // Se llaman las validaciones
 
 onUpdateField('select-account', event => {
@@ -77,24 +78,28 @@ onUpdateField('concept', event => {
     });
 });
 
-
-onUpdateField('year', event => {
+onUpdateField('notes', event => {
     const value = event.target.value; // recoge el contenido del id correspondiente en la constante value
-    transfer = {...transfer, year: value }; // le damos toda la información que tiene actualmente y cambiamos su valor por el recogido en el value
-    callTHeDates();
+    transfer = {...transfer, notes: value }; // le damos toda la información que tiene actualmente y cambiamos su valor por el recogido en el value
 });
 
-
-onUpdateField('month', event => {
-    const value = event.target.value; // recoge el contenido del id correspondiente en la constante value
-    transfer = {...transfer, month: value }; // le damos toda la información que tiene actualmente y cambiamos su valor por el recogido en el value
-    callTHeDates();
-});
 
 onUpdateField('day', event => {
     const value = event.target.value; // recoge el contenido del id correspondiente en la constante value
     transfer = {...transfer, day: value }; // le damos toda la información que tiene actualmente y cambiamos su valor por el recogido en el value
-    callTHeDates();
+    callTHeDates(); // validamos el campo del día, del mes y del año a la vez
+});
+
+onUpdateField('month', event => {
+    const value = event.target.value; // recoge el contenido del id correspondiente en la constante value
+    transfer = {...transfer, month: value }; // le damos toda la información que tiene actualmente y cambiamos su valor por el recogido en el value
+    callTHeDates(); // validamos el campo del día, del mes y del año a la vez
+});
+
+onUpdateField('year', event => {
+    const value = event.target.value; // recoge el contenido del id correspondiente en la constante value
+    transfer = {...transfer, year: value }; // le damos toda la información que tiene actualmente y cambiamos su valor por el recogido en el value
+    callTHeDates(); // validamos el campo del día, del mes y del año a la vez
 });
 
 onUpdateField('email', event => {
@@ -105,8 +110,9 @@ onUpdateField('email', event => {
     });
 });
 
-
-const validateDate = (day, month, year) => { // Valida la fecha al completo
+// Valida la fecha al completo, por si algún dato se hubiese escapado a la validación,
+// comparando la fecha actual con la fecha introducida, aunando día, mes y año en una variable Date
+const validateDate = (day, month, year) => {
     const dateObject = new Date();
     const myStringToday = (dateObject.getMonth() - 1) + '/' + dateObject.getDate() + '-' + dateObject.getFullYear();
     const myToday = new Date(myStringToday);
@@ -118,22 +124,18 @@ const validateDate = (day, month, year) => { // Valida la fecha al completo
 };
 
 const onSave = () => {
-    const apiTransfer = mapTransferVmToApi(transfer);
-    return insertTransfer(apiTransfer);
+    return insertTransfer(transfer);
 };
 
 onSubmitForm('transfer-button', () => {
-    //if (validateDate(transfer.day, transfer.month, transfer.year)) {
     formValidation.validateForm(transfer).then(result => {
-        console.log(transfer);
         onSetFormErrors(result);
-        if (result.succeeded) {
-            onSave().then(() => {
-                console.log("todo correcto");
-                //history.back();
-            });
-        }
-        console.log("la validacion no ha ido bien");
+        if (validateDate(transfer.day, transfer.month, transfer.year)) { // se realiza una última valida
+            if (result.succeeded) {
+                onSave().then(() => {
+                    history.back();
+                });
+            }
+        } else { alert("Los datos no son correctos. Por favor, revíselos y complete el formulario para realizar la transferencia"); }
     });
-    //} else { alert("Fecha incorrecta"); }
 });

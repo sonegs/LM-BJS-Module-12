@@ -12,7 +12,7 @@ let account = {
 };
 
 const params = history.getParams();
-console.log(params);
+
 const isEditMode = Boolean(params.id);
 if (isEditMode) {
     getAccount(params.id).then(apiAccount => {
@@ -36,7 +36,6 @@ onUpdateField('type', event => {
 onUpdateField('alias', event => {
     const value = event.target.value;
     account = {...account, alias: value };
-    console.log(account.alias);
     formValidation.validateField('alias', account.alias).then(result => {
         onSetError('alias', result);
     });
@@ -49,12 +48,11 @@ const onSave = () => {
 
 onSubmitForm('save-button', () => {
     formValidation.validateForm(account).then(result => {
-        console.log(account);
         onSetFormErrors(result);
         if (result.succeeded) {
-            // onSave().then(() => {
-            //     history.back();
-            // });
+            onSave().then(() => {
+                history.back();
+            });
         }
     });
 });

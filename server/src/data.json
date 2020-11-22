@@ -35,11 +35,28 @@
     },
     {
       "iban": "KW67 MOCT L3B3 14KO 9W77 9541 0774 5U",
-      "name": "Compartida2",
+      "name": "Compartida3",
       "type": "3",
       "balance": 0,
       "lastTransaction": "2020-11-21T16:36:40.632Z",
-      "id": "OaH9VGK"
+      "id": "OaH9VGK",
+      "alias": "Compartida3"
+    },
+    {
+      "iban": "SA51 280T 6S15 57H0 IYT1 S34A",
+      "name": "Jubilación",
+      "type": "2",
+      "balance": 0,
+      "lastTransaction": "2020-11-22T09:52:59.458Z",
+      "id": "_AEnMHu"
+    },
+    {
+      "iban": "AD26 3009 3533 S21I 1470 57R0",
+      "name": "test1",
+      "type": "1",
+      "balance": 0,
+      "lastTransaction": "2020-11-22T09:59:24.662Z",
+      "id": "yq6uftl"
     }
   ],
   "movements": [
@@ -150,6 +167,45 @@
       "day": "1",
       "month": "1",
       "year": "2021",
+      "email": "sonegs@hotmail.com"
+    },
+    {
+      "id": 3,
+      "select": 1,
+      "iban": "ES91 2100 0418 4502 0005 1000",
+      "name": "Miguel Cobo",
+      "amount": "300",
+      "concept": "Test",
+      "comments": "",
+      "day": "1",
+      "month": "1",
+      "year": "2022",
+      "email": "sonegs@hotmail.com"
+    },
+    {
+      "id": 4,
+      "select": 1,
+      "iban": "ES91 2100 0418 4502 0005 1007",
+      "name": "Miguel Cobo",
+      "amount": "50",
+      "concept": "Test",
+      "comments": "",
+      "day": "1",
+      "month": "2",
+      "year": "2021",
+      "email": "sonegs@hotmail.com"
+    },
+    {
+      "id": 5,
+      "select": 1,
+      "iban": "ES91 2100 0418 4502 0005 1010",
+      "name": "Miguel Cobo",
+      "amount": "3",
+      "concept": "Netflix",
+      "comments": "",
+      "day": "30",
+      "month": "11",
+      "year": "2020",
       "email": "sonegs@hotmail.com"
     }
   ]
