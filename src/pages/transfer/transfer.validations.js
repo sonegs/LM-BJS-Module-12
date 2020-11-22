@@ -1,41 +1,64 @@
 import { Validators, createFormValidation } from '@lemoncode/fonk';
+import { dayValidator, monthValidator, yearValidator } from './custom-validator';
 
 const validationSchema = {
     field: {
-        name: [{ // Validamos el campo name
-            validator: Validators.required, //se usa el metodo importado Validators
-            message: 'Campo requerido',
-        }, ],
-        iban: [{ // Validamos el campo iban
-            validator: Validators.required,
-            message: 'Campo requerido',
-        }, ],
-        amount: [{ // Validamos el campo importe
-            validator: Validators.required,
-            message: 'Campo requerido',
-        }, ],
-        concept: [{ // Validamos el campo concept
-            validator: Validators.required,
-            message: 'Campo requerido',
-        }, ],
-        day: [{ // Validamos el campo day
-            validator: Validators.required,
-            message: 'Campo requerido',
-        }, ],
+        iban: [{ // validamos el campo IBAN
+                validator: Validators.required,
+                message: 'Campo requerido',
+            },
+            {
+                validator: Validators.pattern,
+                customArgs: { pattern: /[A-Z]\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}|ES\d{22}/ },
+                message: 'Introduzca un número IBAN válido',
+            }
+        ],
+        name: [{ // validamos el campo Beneficiario
+                validator: Validators.required,
+                message: 'Campo requerido',
+            },
+            {
+                validator: Validators.pattern,
+                customArgs: { pattern: /^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/ },
+                message: 'Introduzca un nombre válido',
+            }
+        ],
+        amount: [{ // validamos el campo Importe
+                validator: Validators.required,
+                message: 'Campo requerido',
+            },
+            {
+                validator: Validators.pattern,
+                customArgs: { pattern: /[0-9]/ },
+                message: 'Introduzca sólo caracteres numéricos',
+            }
+        ],
+        concept: [{ // validamos el campo Concepto
+                validator: Validators.required,
+                message: 'Campo requerido',
+            },
+            {
+                validator: Validators.pattern,
+                customArgs: { pattern: /[A-Za-zÁÉÍÓÚñáéíóúÑ]{2}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']/ },
+                message: 'Introduzca un concepto correcto',
+            }
+        ],
+        day: [{ // validamos el campo day
+            validator: dayValidator,
+        }],
         month: [{ // Validamos el campo month
-            validator: Validators.required,
-            message: 'Campo requerido',
+            validator: monthValidator,
         }, ],
         year: [{ // Validamos el campo year
-            validator: Validators.required,
-            message: 'Campo requerido',
+            validator: yearValidator,
         }, ],
         email: [{ // validamos el campo email
                 validator: Validators.required,
-                message: 'Email no válido',
+                message: 'Campo requerido',
             },
             {
                 validator: Validators.email,
+                message: 'Email no válido',
             }
         ],
     },

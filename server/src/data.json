@@ -32,6 +32,14 @@
       "lastTransaction": "2020-11-14T16:03:12.602Z",
       "id": "JzdvVPb",
       "alias": "Compartida"
+    },
+    {
+      "iban": "KW67 MOCT L3B3 14KO 9W77 9541 0774 5U",
+      "name": "Compartida2",
+      "type": "3",
+      "balance": 0,
+      "lastTransaction": "2020-11-21T16:36:40.632Z",
+      "id": "OaH9VGK"
     }
   ],
   "movements": [
@@ -117,5 +125,32 @@
       "accountId": "3"
     }
   ],
-  "transfer": []
+  "transfer": [
+    {
+      "iban": "ES91 2100 0418 4502 0005 1111",
+      "name": "Miguel Cobo",
+      "amount": "300",
+      "concept": "Test",
+      "comments": "",
+      "day": "1",
+      "month": "1",
+      "year": "2021",
+      "email": "sonegs@hotmail.com",
+      "select": "",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "select": 1,
+      "iban": "ES91 2100 0418 4502 0005 1003",
+      "name": "Miguel Cobo",
+      "amount": "300",
+      "concept": "Test",
+      "comments": "",
+      "day": "1",
+      "month": "1",
+      "year": "2021",
+      "email": "sonegs@hotmail.com"
+    }
+  ]
 }

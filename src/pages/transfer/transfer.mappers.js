@@ -1,7 +1,6 @@
 export const mapTransferVmToApi = transfer => {
     return {
         ...transfer,
-        name: transfer.alias,
     };
 };
 

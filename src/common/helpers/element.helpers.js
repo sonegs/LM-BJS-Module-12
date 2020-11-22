@@ -39,6 +39,7 @@ const removeElementClass = id => {
 };
 
 const setErrorMessage = (id, message) => {
+    if ((id === 'day') || (id === 'month') || (id === 'year')) id = 'date'; // He introducido esta línea para mostrar los errores de day, month y year
     const messageElement = document.getElementById(`${id}-error`);
     if (messageElement) {
         messageElement.textContent = message;
@@ -62,8 +63,6 @@ const setValue = (element, value) => {
 
 const onSetValue = (id, value) => {
     const element = document.getElementById(id);
-    console.log({ element });
-    console.log({ value });
     if (element) {
         setValue(element, value);
     }

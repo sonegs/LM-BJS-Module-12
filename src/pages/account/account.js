@@ -26,8 +26,8 @@ if (isEditMode) {
 onUpdateField('type', event => {
     const value = event.target.value;
     account = {...account, type: value };
-
     // Valida los datos de account.type
+
     formValidation.validateField('type', account.type).then(result => {
         onSetError('type', result);
     });
@@ -36,7 +36,7 @@ onUpdateField('type', event => {
 onUpdateField('alias', event => {
     const value = event.target.value;
     account = {...account, alias: value };
-
+    console.log(account.alias);
     formValidation.validateField('alias', account.alias).then(result => {
         onSetError('alias', result);
     });
@@ -47,14 +47,14 @@ const onSave = () => {
     return isEditMode ? updateAccount(apiAccount) : insertAccount(apiAccount);
 };
 
-
 onSubmitForm('save-button', () => {
     formValidation.validateForm(account).then(result => {
+        console.log(account);
         onSetFormErrors(result);
         if (result.succeeded) {
-            onSave().then(() => {
-                history.back();
-            });
+            // onSave().then(() => {
+            //     history.back();
+            // });
         }
     });
 });
