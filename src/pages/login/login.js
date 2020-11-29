@@ -15,21 +15,21 @@ let login = {
 onUpdateField('user', event => {
     const value = event.target.value; // recoge el contenido de id "user" en la constante value
     login = {...login, user: value }; // le damos toda la información que tiene actualmente y se cambia el valor de user por el recogido en el value
-});
 
-formValidation.validateField('user', login.user).then(result => { //Valida el campo usuario
-    onSetError('user', result);
+    formValidation.validateField('user', login.user).then(result => { //Valida el campo usuario
+        onSetError('user', result);
+    });
 });
 
 // Recoge los datos del campo contraseña
 onUpdateField('password', event => {
     const value = event.target.value;
     login = {...login, password: value };
-});
 
-// Valida el campo constraseña
-formValidation.validateField('password', login.password).then(result => {
-    onSetError('password', result);
+    // Valida el campo constraseña
+    formValidation.validateField('password', login.password).then(result => {
+        onSetError('password', result);
+    });
 });
 
 const onNavigate = isValid => { // Si el login es correcto, redirige. Si no, muestra un alert
